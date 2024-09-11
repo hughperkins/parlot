@@ -89,7 +89,7 @@ namespace Parlot.Fluent
                             : Expression.Constant(false, typeof(bool))
                             ),
                     Expression.Block(
-                        [start],
+                        new[]{start},
                         Expression.Assign(start, context.Offset()),
                         context.AdvanceNoNewLine(Expression.Constant(1)),
                         Expression.Loop(
