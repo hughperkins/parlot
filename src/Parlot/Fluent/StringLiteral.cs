@@ -15,11 +15,15 @@ namespace Parlot.Fluent
 
     public sealed class StringLiteral : Parser<TextSpan>, ICompilable, ISeekable
     {
-        private static readonly MethodInfo _decodeStringMethodInfo = typeof(Character).GetMethod("DecodeString", [typeof(TextSpan)])!;
+        // private static readonly MethodInfo _decodeStringMethodInfo = typeof(Character).GetMethod("DecodeString", [typeof(TextSpan)])!;
+        private static readonly MethodInfo _decodeStringMethodInfo = typeof(Character).GetMethod("DecodeString", new[] { typeof(TextSpan) })!;
 
-        static readonly char[] SingleQuotes = ['\''];
-        static readonly char[] DoubleQuotes = ['\"'];
-        static readonly char[] SingleOrDoubleQuotes = ['\'', '\"'];
+        // static readonly char[] SingleQuotes = ['\''];
+        // static readonly char[] DoubleQuotes = ['\"'];
+        // static readonly char[] SingleOrDoubleQuotes = ['\'', '\"'];
+        static readonly char[] SingleQuotes = new char[] { '\'' };
+        static readonly char[] DoubleQuotes = new char[] { '\"' };
+        static readonly char[] SingleOrDoubleQuotes = new char[] { '\'', '\"' };
 
         private readonly StringLiteralQuotes _quotes;
 
@@ -32,7 +36,8 @@ namespace Parlot.Fluent
                 StringLiteralQuotes.Single => SingleQuotes,
                 StringLiteralQuotes.Double => DoubleQuotes,
                 StringLiteralQuotes.SingleOrDouble => SingleOrDoubleQuotes,
-                _ => []
+                // _ => []
+                _ => Array.Empty<char>()
             };
         }
 
@@ -104,7 +109,7 @@ namespace Parlot.Fluent
                 Expression.IfThen(
                     parseStringExpression,
                     Expression.Block(
-                        [end],
+                        new[] { end },
                         Expression.Assign(end, context.Offset()),
                         Expression.Assign(result.Success, Expression.Constant(true, typeof(bool))),
                         context.DiscardResult
