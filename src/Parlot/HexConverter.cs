@@ -6,6 +6,8 @@
 using System;
 using System.Runtime.CompilerServices;
 
+namespace Parlot;
+
 internal static class HexConverter
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
