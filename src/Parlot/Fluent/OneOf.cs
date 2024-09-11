@@ -228,7 +228,7 @@ namespace Parlot.Fluent
 
                 var current = Expression.Variable(typeof(uint), $"current{context.NextNumber}");
                 var binarySwitch = Expression.Block(
-                    [current],
+                    new[]{current},
                     Expression.Assign(current, Expression.Convert(context.Current(), typeof(uint))),
                     BinarySwitch(current, cases)
                 );
